@@ -11,3 +11,7 @@
 
 1. css 변수 `--deg`를 활용하여 JS로 `Analog Clock` 조정
 2. `Timeout` function 사용하여 ms 조정
+
+### Refactoring
+
+1. 최초 로드 시 버퍼 제거
