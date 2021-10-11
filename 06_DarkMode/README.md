@@ -14,9 +14,5 @@
 
 ## TODO
 
-1. css 변수 `--deg`를 활용하여 JS로 `Analog Clock` 조정
-2. `Timeout` function 사용하여 ms 조정
-
-### Refactoring
-
-1. 최초 로드 시 버퍼 제거
+1. toggle 버튼 클릭 시 `body`에 `dark` 클래스 추가
+2. 시스템 테마를 확인하여 테마 지정
