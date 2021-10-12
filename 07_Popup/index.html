@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Popup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400" rel="stylesheet" />
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1 class="title">Popup</h1>
+    <button class="toggle-popup">toggle popup</button>
+    <!-- 팝업을 위한 HTML -->
+    <div class="dialog-outer">
+      <div
+        role="dialog"
+        id="dialog"
+        aria-labelledby="dialogTitle"
+        aria-describedby="dialogDescription"
+        aria-modal="true"
+      >
+        <div class="dialog-wrapper">
+          <h2 class="title dialog-title" id="dialogTitle" aria-hidden="false">Hello!</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          <form class="dialog-form">
+            <input type="text" class="dialog-input" />
+            <button type="submit" class="confirm">OK</button>
+            <button type="button" class="cancle">Cancel</button>
+          </form>
+          <i class="bx bx-x dialog-close-button"></i>
+        </div>
+      </div>
+    </div>
+    <p class="popup-message"></p>
+    <script src="main.js"></script>
+  </body>
+</html>
