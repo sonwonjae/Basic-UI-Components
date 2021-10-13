@@ -1,6 +1,3 @@
-const toastHeight = document.body.style.getPropertyValue('--toast-height');
-console.log(toastHeight);
-
 const toaster = {
   state: [],
   time: 0,
