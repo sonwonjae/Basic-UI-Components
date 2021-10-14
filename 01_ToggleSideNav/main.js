@@ -1,23 +1,33 @@
 // DOM nodes
-const $navigation = document.querySelector('nav');
-const $main = document.querySelector('main');
 const $toggleArrow = document.querySelector('.toggle');
 
 /**
- * get initial page nav's status
+ * @returns {object} navigation methods
  */
-const getNavStatus = () => {
-  localStorage.getItem('navActive') === 'true'
-    ? [$navigation, $main, $toggleArrow].forEach($el => $el.classList.add('notransition', 'active'))
-    : $navigation.classList.remove('active');
-};
+const navigation = (() => {
+  // private DOM nodes
+  const $navigation = document.querySelector('nav');
+  const $main = document.querySelector('main');
+
+  return {
+    /** get initial page nav's status */
+    getStatus() {
+      [$navigation, $main, $toggleArrow].forEach($el => $el.classList.add('notransition'));
+      $navigation.classList.toggle('active', localStorage.getItem('navActive') === 'true');
+    },
+    /** add nav's transition */
+    addTranstion() {
+      [$navigation, $main, $toggleArrow].forEach($el => $el.classList.remove('notransition'));
+    },
+    /** toggle navigation */
+    toggle() {
+      localStorage.setItem('navActive', $navigation.classList.toggle('active'));
+    },
+  };
+})();
 
 // Event bindings
-window.addEventListener('DOMContentLoaded', getNavStatus);
+window.addEventListener('DOMContentLoaded', navigation.getStatus);
+window.addEventListener('load', navigation.addTranstion);
 
-window.addEventListener('load', () => {
-  [$navigation, $main, $toggleArrow].forEach($el => $el.classList.remove('notransition'));
-});
-
-$toggleArrow.onclick = () =>
-  localStorage.setItem('navActive', $navigation.classList.toggle('active'));
+$toggleArrow.onclick = navigation.toggle;
