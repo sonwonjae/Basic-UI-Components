@@ -1,57 +1,56 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calendar</title>
+    <!-- 원하는 폰트와 아이콘을 사용해도 좋다. -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet" />
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calendar</title>
-  <!-- 원하는 폰트와 아이콘을 사용해도 좋다. -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet" />
-  <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css">
-</head>
+  <body>
+    <h1 class="title">Calendar</h1>
 
-<body>
-  <h1 class="title">Calendar</h1>
+    <div class="calendar">
+      <input type="text" class="calendar-input" />
 
-  <div class="calendar">
-    <input type="text" class="calendar-input">
+      <!-- 뷰를 구현하세요 -->
+      <div class="calendar-wrapper">
+        <div class="calendar-nav">
+          <button class="button prev"><i class="bx bxs-left-arrow"></i></button>
 
-    <!-- 뷰를 구현하세요 -->
-    <div class="calendar-wrapper">
-      <div class="calendar-nav">
-        <button class="button prev"><i class='bx bxs-left-arrow'></i></button>
+          <div class="calendar-title">
+            <!-- <span class="month">January</span>
+            <span class="year">2021</span> -->
+          </div>
 
-        <div class="calendar-title">
-          <span class="month">January</span>
-          <span class="year">2021</span>
+          <button class="button next"><i class="bx bxs-right-arrow"></i></button>
         </div>
+        <div class="calendar-grid">
+          <div class="day-of-week">
+            <div>SUN</div>
+            <div>MON</div>
+            <div>TUE</div>
+            <div>WED</div>
+            <div>THU</div>
+            <div>FRI</div>
+            <div>SAT</div>
+          </div>
 
-        <button class="button next"><i class='bx bxs-right-arrow'></i></button>
-      </div>
-      <div class="calendar-grid">
-        <div class="day-of-week">
-          <div>Su</div>
-          <div>Mo</div>
-          <div>Tu</div>
-          <div>We</div>
-          <div>Th</div>
-          <div>Fr</div>
-          <div>Sa</div>
-        </div>
-
-        <div class="date-grid">
-          <button class="sunday"><time datetime="2019-02-01">1</time></button>
-          <button><time datetime="2019-02-02">2</time></button>
-          <button><time datetime="2019-02-03">3</time></button>
-          <button><time datetime="2019-02-04">4</time></button>
-          <button><time datetime="2019-02-05">5</time></button>
-          <button><time datetime="2019-02-06">6</time></button>
-          <button><time datetime="2019-02-07">7</time></button>
+          <div class="date-grid">
+            <button class="sunday"><time datetime="2019-02-01">1</time></button>
+            <button><time datetime="2019-02-02">2</time></button>
+            <button><time datetime="2019-02-03">3</time></button>
+            <button><time datetime="2019-02-04">4</time></button>
+            <button><time datetime="2019-02-05">5</time></button>
+            <button><time datetime="2019-02-06">6</time></button>
+            <button><time datetime="2019-02-07">7</time></button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</body>
-
+    <script src="main.js"></script>
+  </body>
 </html>
