@@ -1,13 +1,13 @@
-// DOM nodes
-const $toggleArrow = document.querySelector('.toggle');
-
 /**
  * @returns {object} navigation methods
  */
 const navigation = (() => {
-  // private DOM nodes
+  // DOM nodes
   const $navigation = document.querySelector('nav');
   const $main = document.querySelector('main');
+  const $toggleArrow = document.querySelector('.toggle');
+
+  $toggleArrow.onclick = navigation.toggle;
 
   return {
     /** get initial page nav's status */
@@ -29,5 +29,3 @@ const navigation = (() => {
 // Event bindings
 window.addEventListener('DOMContentLoaded', navigation.getStatus);
 window.addEventListener('load', navigation.addTranstion);
-
-$toggleArrow.onclick = navigation.toggle;
