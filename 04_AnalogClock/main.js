@@ -1,3 +1,6 @@
+/**
+ * @returns {function} Set clock's hands
+ */
 const movementTime = (() => {
   const $hour = document.querySelector('.hour');
   const $minute = document.querySelector('.minute');
@@ -13,4 +16,7 @@ const movementTime = (() => {
 })();
 
 // Event binding
-window.addEventListener('DOMContentLoaded', () => setInterval(movementTime, 1000));
+window.addEventListener('DOMContentLoaded', () => {
+  movementTime(); // call immediatly
+  setInterval(movementTime, 1000);
+});
