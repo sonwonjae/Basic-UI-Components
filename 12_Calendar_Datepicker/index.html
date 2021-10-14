@@ -14,17 +14,14 @@
     <h1 class="title">Calendar</h1>
 
     <div class="calendar">
-      <input type="text" class="calendar-input" />
+      <input type="text" class="calendar-input" readonly />
 
       <!-- 뷰를 구현하세요 -->
-      <div class="calendar-wrapper">
+      <div class="calendar-wrapper hidden">
         <div class="calendar-nav">
           <button class="button prev"><i class="bx bxs-left-arrow"></i></button>
 
-          <div class="calendar-title">
-            <!-- <span class="month">January</span>
-            <span class="year">2021</span> -->
-          </div>
+          <div class="calendar-title"></div>
 
           <button class="button next"><i class="bx bxs-right-arrow"></i></button>
         </div>
@@ -39,15 +36,7 @@
             <div>SAT</div>
           </div>
 
-          <div class="date-grid">
-            <button class="sunday"><time datetime="2019-02-01">1</time></button>
-            <button><time datetime="2019-02-02">2</time></button>
-            <button><time datetime="2019-02-03">3</time></button>
-            <button><time datetime="2019-02-04">4</time></button>
-            <button><time datetime="2019-02-05">5</time></button>
-            <button><time datetime="2019-02-06">6</time></button>
-            <button><time datetime="2019-02-07">7</time></button>
-          </div>
+          <div class="date-grid"></div>
         </div>
       </div>
     </div>
