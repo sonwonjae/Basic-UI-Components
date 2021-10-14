@@ -14,5 +14,5 @@
 
   // Event bindings
   $increase.onclick = () => renderCount(++count);
-  $decrease.onclick = () => renderCount(count === 0 ? 0 : --count);
+  $decrease.onclick = () => renderCount(count && --count);
 })();
