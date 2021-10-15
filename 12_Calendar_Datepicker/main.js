@@ -1,3 +1,7 @@
+/**
+ * @todo prev, next 버튼 클릭했을 때 input창에 표시
+ */
+
 // Constants
 const monthStr = [
   'January',
@@ -13,9 +17,6 @@ const monthStr = [
   'November',
   'December',
 ];
-
-// Regexp
-const DAY_REG_EXP = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;
 
 // DOM nodes
 const $calendar = document.querySelector('.calendar');
@@ -44,31 +45,26 @@ const formatDate = (() => {
  * 달의 마지막 일
  * @type { (year: number, month: number) => number }
  */
-const getLastDateOfMonth = (year, month) =>
+const getLastDate = (year, month) =>
   month === 11 ? new Date(year + 1, 0, 0).getDate() : new Date(year, month + 1, 0).getDate();
 
 /**
  * 달의 1일의 요일
  * @type { (year: number, month: number) => number }
  */
-const getFirstDayOfMonth = (year, month) => new Date(year, month, 1).getDay();
-const getLastDayOfMonth = (year, month) =>
+const getFirstDay = (year, month) => new Date(year, month, 1).getDay();
+const getLastDay = (year, month) =>
   month === 11 ? new Date(year + 1, 0, 0).getDay() : new Date(year, month + 1, 0).getDay();
 
-const getPrevMonthDate = ({ year, month, date }) =>
-  getLastDateOfMonth(year, month - 1) < date
-    ? new Date(year, month - 1, getLastDateOfMonth(year, month - 1))
-    : new Date(year, month - 1, date);
-
-const getNextMonthDate = ({ year, month, date }) =>
-  new Date(
-    +objectToDate({ year, month, date }) + getLastDateOfMonth(year, month) * 24 * 60 * 60 * 1000,
-  );
+/**
+ * 달의 당일?
+ * @type { (year: number, month: number, date: number) => Date }
+ */
+const getMonthDate = ({ year, month, date }) =>
+  new Date(year, month, getLastDate(year, month) < date ? getLastDate(year, month) : date);
 
 // render
 const render = ({ year, month, date }) => {
-  /** @todo: explicit type casting */
-  // const [year, month, date] = [+year, +month, +date];
   $calendarTitle.innerHTML = `
     <span class="month">${monthStr[month]}</span>
     <span class="year">${year}</span>`;
@@ -79,22 +75,23 @@ const render = ({ year, month, date }) => {
   const nextYear = month === 11 ? year + 1 : year;
   const nextMonth = month === 11 ? 0 : month + 1;
 
-  let prevStartDate = getLastDateOfMonth(prevYear, prevMonth) - getFirstDayOfMonth(year, month) + 1;
-  const prevDates = Array.from({ length: getFirstDayOfMonth(year, month) }, () => ({
+  let prevStartDate = getLastDate(prevYear, prevMonth) - getFirstDay(year, month) + 1;
+
+  const prevDates = Array.from({ length: getFirstDay(year, month) }, () => ({
     year: prevYear,
     month: prevMonth,
     date: prevStartDate++,
     current: false,
   }));
 
-  const currentDates = Array.from({ length: getLastDateOfMonth(year, month) }, (_, i) => ({
+  const currentDates = Array.from({ length: getLastDate(year, month) }, (_, i) => ({
     year,
     month,
     date: i + 1,
     current: true,
   }));
 
-  const nextDates = Array.from({ length: 6 - getLastDayOfMonth(year, month) }, (_, i) => ({
+  const nextDates = Array.from({ length: 6 - getLastDay(year, month) }, (_, i) => ({
     year: nextYear,
     month: nextMonth,
     date: i + 1,
@@ -118,42 +115,24 @@ const init = () => {
 // Event Binding
 window.addEventListener('DOMContentLoaded', init);
 
-document.body.addEventListener('click', e => {
-  if (!e.target.closest('.calendar')) {
-    $calendarWrapper.classList.toggle('hidden', true);
-  }
-});
-
-$calendarInput.onclick = e => {
-  $calendarWrapper.classList.toggle('hidden');
+document.body.onclick = e => {
+  if (e.target.closest('.calendar')) return;
+  $calendarWrapper.classList.toggle('hidden', true);
 };
 
-$calendarInput.onchange = e => {
-  e.target.classList.toggle('hidden', true);
-  if (!DAY_REG_EXP.test(e.target.value)) return;
+$calendarInput.onclick = () => $calendarWrapper.classList.toggle('hidden');
 
-  const [year, month, date] = e.target.value.split('-');
-  render(dateToObject(new Date(year, month - 1, date)));
-};
+const parseDate = () =>
+  document.querySelector('button.selected > time').getAttribute('datetime').split('-');
 
 $prev.onclick = () => {
-  /** @todo: refactoring */
-  const [year, month, date] = document
-    .querySelector('button.selected > time')
-    .getAttribute('datetime')
-    .split('-');
-
-  render(dateToObject(getPrevMonthDate({ year, month: month - 1, date })));
+  const [year, month, date] = parseDate();
+  render(dateToObject(getMonthDate({ year, month: +month - 1 - 1, date })));
 };
 
 $next.onclick = () => {
-  /** @todo: refactoring */
-  const [year, month, date] = document
-    .querySelector('button.selected > time')
-    .getAttribute('datetime')
-    .split('-');
-
-  render(dateToObject(getNextMonthDate({ year, month: +month - 1, date })));
+  const [year, month, date] = parseDate();
+  render(dateToObject(getMonthDate({ year, month: +month - 1 + 1, date })));
 };
 
 $calendarDate.onclick = e => {
@@ -164,7 +143,7 @@ $calendarDate.onclick = e => {
     : e.target.getAttribute('datetime');
   const [year, month, date] = datetime.split('-');
 
-  render({ year: +year, month: month - 1, date: +date });
+  render({ year: +year, month: +month - 1, date: +date });
   $calendarInput.value = datetime;
   $calendarWrapper.classList.toggle('hidden');
 };
