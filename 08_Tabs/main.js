@@ -96,4 +96,4 @@ window.addEventListener('DOMContentLoaded', () => {
 
 window.onresize = _.throttle(() => {
   tab.resizeTabs();
-}, 200);
+}, 100);

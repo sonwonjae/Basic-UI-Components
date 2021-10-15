@@ -1,16 +1,21 @@
-const $accordion = document.querySelector('.accordion');
-const $menuContainers = document.querySelectorAll('.menu-container');
+(() => {
+  // DOM Nodes
+  const $accordion = document.querySelector('.accordion');
+  const $menuContainers = document.querySelectorAll('.menu-container');
 
-const toggleActive = $subMenu => {
-  const $target = $subMenu.parentNode;
-  $menuContainers.forEach($container => {
-    $container.classList.toggle('active', $target === $container);
-    $container.lastElementChild.style.height =
-      $target === $container ? `${$subMenu.scrollHeight}px` : '0';
-  });
-};
+  /** @type { (Element) => {} } */
+  const toggleActive = $subMenu => {
+    $menuContainers.forEach($container => {
+      const matched = $subMenu.parentNode === $container;
 
-$accordion.onclick = e => {
-  if (!e.target.classList.contains('menu')) return;
-  toggleActive(e.target.nextElementSibling);
-};
+      $container.classList.toggle('active', matched);
+      $container.lastElementChild.style.height = `${matched ? $subMenu.scrollHeight : 0}px`;
+    });
+  };
+
+  // Event binding
+  $accordion.onclick = e => {
+    if (!e.target.classList.contains('menu')) return;
+    toggleActive(e.target.nextElementSibling);
+  };
+})();
