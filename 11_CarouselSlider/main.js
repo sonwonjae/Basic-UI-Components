@@ -1,5 +1,5 @@
 const DURATION_TIME = 500;
-
+let onTransition = false;
 // DOM nodes
 const $carousel = document.querySelector('.carousel');
 
@@ -55,32 +55,40 @@ const prevControl = $slides => {
   const currentSlide = $slides.style.getPropertyValue('--currentSlide');
   $slides.style.setProperty('--duration', DURATION_TIME);
   $slides.style.setProperty('--currentSlide', +currentSlide - 1);
-
-  if (+currentSlide === 1) {
-    setTimeout(() => {
-      $slides.style.setProperty('--duration', 0);
-      $slides.style.setProperty('--currentSlide', $slides.children.length - 2);
-    }, DURATION_TIME);
-  }
 };
 
 const nextControl = $slides => {
   const currentSlide = $slides.style.getPropertyValue('--currentSlide');
   $slides.style.setProperty('--duration', DURATION_TIME);
   $slides.style.setProperty('--currentSlide', +currentSlide + 1);
-
-  if (+currentSlide === $slides.children.length - 2) {
-    setTimeout(() => {
-      $slides.style.setProperty('--duration', 0);
-      $slides.style.setProperty('--currentSlide', 1);
-    }, DURATION_TIME);
-  }
 };
 
 // Event bindings
-$carousel.onclick = _.throttle(e => {
+$carousel.onclick = e => {
+  if (onTransition) return;
   if (!e.target.matches('.carousel-control')) return;
   e.target.classList.contains('prev')
     ? prevControl(e.target.parentNode.firstElementChild)
     : nextControl(e.target.parentNode.firstElementChild);
-}, DURATION_TIME);
+};
+
+$carousel.ontransitionstart = () => {
+  onTransition = true;
+};
+
+$carousel.ontransitionend = e => {
+  onTransition = false;
+
+  if (!e.target.matches('.carousel-slides')) return;
+  const $slides = e.target;
+  const currentSlide = $slides.style.getPropertyValue('--currentSlide');
+
+  if (+currentSlide === 0) {
+    $slides.style.setProperty('--duration', 0);
+    $slides.style.setProperty('--currentSlide', $slides.children.length - 2);
+  }
+  if (+currentSlide === $slides.children.length - 1) {
+    $slides.style.setProperty('--duration', 0);
+    $slides.style.setProperty('--currentSlide', 1);
+  }
+};
