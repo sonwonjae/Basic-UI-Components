@@ -1,7 +1,9 @@
-// DOM Nodes
-const $toggleButton = document.querySelector('.toggle-button');
+(() => {
+  // DOM Nodes
+  const $toggleButton = document.querySelector('.toggle-button');
 
-// Event binding
-$toggleButton.onclick = () => {
-  localStorage.setItem('dark', document.body.classList.toggle('dark'));
-};
+  // Event binding
+  $toggleButton.onclick = () => {
+    localStorage.setItem('dark', document.body.classList.toggle('dark'));
+  };
+})();
