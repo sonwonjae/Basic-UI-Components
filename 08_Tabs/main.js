@@ -21,52 +21,79 @@ const fetchTabsData = () =>
     );
   });
 
-// state
-let currentTab = 0;
+/**
+ * @returns {object} tab's methods
+ */
+const tab = (() => {
+  // state
+  /** @type {number} */
+  let currentTab = 0;
 
-// DOM Nodes
-const $tabs = document.querySelector('.tabs');
-const $spinner = document.querySelector('.spinner');
-let $glider;
+  /** @type {number} */
+  let tabLength = 0;
 
-// render function
-const render = resolve => {
-  let tabsHTML = '';
-  let tabsTitles = '';
-  let tabsContents = '';
+  // DOM Nodes
+  const $tabs = document.querySelector('.tabs');
+  const $spinner = document.querySelector('.spinner');
 
-  $tabs.style.setProperty('--tab-width', (window.innerWidth * 0.8) / resolve.length);
-  $tabs.style.setProperty('--tabs-length', resolve.length);
+  const shiftGlider = index => {
+    const $glider = document.querySelector('.glider');
+    $glider.style.left = index * $tabs.style.getPropertyValue('--tab-width') + 'px';
+  };
 
-  resolve.forEach(({ title, content }, i) => {
-    tabsTitles += `<div class="tab" data-index="${i}">${title}</div>`;
-    tabsContents += `<div class="tab-content ${i === currentTab ? 'active' : ''}">${content}</div>`;
-  });
+  const toggleActiveAll = () => {
+    const tabsContentsNodes = $tabs.querySelectorAll('.tab-content');
+    [...tabsContentsNodes].forEach(($contentNode, i) =>
+      $contentNode.classList.toggle('active', i === currentTab),
+    );
+  };
 
-  tabsHTML = `<nav>${tabsTitles}<span class="glider"></span></nav>${tabsContents}`;
+  const switchTabHandler = e => {
+    if (!e.target.closest('nav')) return;
 
-  // render 완료
-  $tabs.innerHTML = tabsHTML;
+    currentTab = +e.target.dataset.index;
+    shiftGlider(e.target.dataset.index);
+    toggleActiveAll();
+  };
 
-  $glider = document.querySelector('.glider');
+  // render function
+  const renderHTML = resolve => {
+    const { titles, contents } = resolve.reduce(
+      (html, { title, content }, i) => {
+        html.titles += `<div class="tab" data-index="${i}">${title}</div>`;
+        html.contents += `<div class="tab-content ${
+          i === currentTab ? 'active' : ''
+        }">${content}</div>`;
+        return html;
+      },
+      { titles: '', contents: '' },
+    );
 
-  $spinner.style.display = 'none';
-};
+    return `<nav>${titles}<span class="glider"></span></nav>${contents}`;
+  };
+
+  return {
+    resizeTabs(length = tabLength) {
+      $tabs.style.setProperty('--tab-width', (window.innerWidth * 0.8) / length);
+      $tabs.style.setProperty('--tabs-length', length);
+    },
+    postProcess(resolve) {
+      $spinner.style.display = 'none';
+      tabLength = resolve.length;
+      $tabs.innerHTML = renderHTML(resolve);
+      $tabs.onclick = switchTabHandler;
+    },
+  };
+})();
 
 // Event binding
 window.addEventListener('DOMContentLoaded', () => {
-  fetchTabsData().then(render);
+  fetchTabsData().then(resolve => {
+    tab.resizeTabs(resolve.length);
+    tab.postProcess(resolve);
+  });
 });
 
-$tabs.onclick = e => {
-  if (!e.target.closest('nav')) return;
-
-  $glider.style.left = e.target.dataset.index * $tabs.style.getPropertyValue('--tab-width') + 'px';
-  currentTab = +e.target.dataset.index;
-
-  const tabsContentsNodes = $tabs.querySelectorAll('.tab-content');
-
-  [...tabsContentsNodes].forEach(($contentNode, i) =>
-    $contentNode.classList.toggle('active', i === currentTab),
-  );
-};
+window.onresize = _.throttle(() => {
+  tab.resizeTabs();
+}, 200);
