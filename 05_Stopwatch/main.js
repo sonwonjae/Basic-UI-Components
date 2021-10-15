@@ -1,3 +1,3 @@
-import { eventBingding } from './view.js';
+import initStopWatch from './view.js';
 
-eventBingding();
+initStopWatch();
