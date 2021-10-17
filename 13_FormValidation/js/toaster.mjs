@@ -1,3 +1,9 @@
+const createToastAction = (type, title, message) => ({
+  type,
+  title,
+  message,
+});
+
 const toaster = {
   state: [],
   time: 0,
@@ -39,4 +45,4 @@ const toaster = {
   },
 };
 
-export default toaster;
+export { createToastAction, toaster };
