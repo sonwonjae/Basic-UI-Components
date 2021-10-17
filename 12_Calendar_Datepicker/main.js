@@ -1,3 +1,4 @@
+import { objectToDate, dateToObject, formatDate } from './utils/helper.js';
 /**
  * @todo prev, next 버튼 클릭했을 때 input창에 표시
  */
@@ -26,20 +27,6 @@ const $prev = $calendar.querySelector('.prev');
 const $next = $calendar.querySelector('.next');
 const $calendarTitle = document.querySelector('.calendar-title');
 const $calendarDate = document.querySelector('.date-grid');
-
-// Utility
-const objectToDate = ({ year, month, date }) => new Date(year, month, date);
-
-const dateToObject = dateObj => ({
-  year: dateObj.getFullYear(),
-  month: dateObj.getMonth(),
-  date: dateObj.getDate(),
-});
-
-const formatDate = (() => {
-  const format = n => (n < 10 ? '0' + n : n + '');
-  return date => `${date.getFullYear()}-${format(date.getMonth() + 1)}-${format(date.getDate())}`;
-})();
 
 /**
  * 달의 마지막 일
