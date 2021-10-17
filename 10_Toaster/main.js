@@ -1,6 +1,14 @@
+/**
+ * @returns {object} Set toaster
+ */
 const toaster = (() => {
+  // state
   const toasts = [];
 
+  /**
+   * render toast
+   * @param {{type: string, title: string, message: string}} newToast
+   */
   const createToast = ({ type, title, message }) => {
     const template = document.createElement('template');
     template.innerHTML = `<div class="toast toast-${type}"">
@@ -17,6 +25,10 @@ const toaster = (() => {
     return template.content.firstElementChild;
   };
 
+  /**
+   * liftup toasts
+   * @param { Element } toast
+   */
   const liftupToasts = toast => {
     const toastHeight = +getComputedStyle(toast)
       .getPropertyValue('--toast-height')
