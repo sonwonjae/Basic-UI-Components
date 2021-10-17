@@ -44,9 +44,9 @@
 
   /**
    * Set slide's css variables
-   * @param {*} $slides - target slides element
-   * @param {*} duration - for changed '--duration'
-   * @param {*} newSlideNum - for changed '--currentSlide'
+   * @param { Element } $slides - target slides element
+   * @param { number } duration - for changed '--duration'
+   * @param { number } newSlideNum - for changed '--currentSlide'
    */
   const setSlideProperty = ($slides, duration, newSlideNum) => {
     $slides.style.setProperty('--duration', duration);
@@ -55,8 +55,8 @@
 
   /**
    * Control silde's button, left or right
-   * @param {*} $slides - slide element
-   * @param {*} isPrev - prev: true, next: false
+   * @param { Element } $slides - slide element
+   * @param { boolean } isPrev - prev: true, next: false
    */
   const slideControl = ($slides, isPrev) => {
     const currentSlide = $slides.style.getPropertyValue('--currentSlide');
