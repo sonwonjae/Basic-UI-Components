@@ -23,10 +23,7 @@
   $popupButton.onclick = openModal;
   [$cancel.onclick, $closeButton.onclick] = [closeModal, closeModal];
 
-  $modal.onclick = e => {
-    if (e.target !== $modal) return;
-    closeModal();
-  };
+  $modal.onclick = e => e.target !== $modal || closeModal();
 
   $form.onsubmit = e => {
     e.preventDefault();
