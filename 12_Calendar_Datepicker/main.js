@@ -1,6 +1,4 @@
-/**
- * @todo prev, next 버튼 클릭했을 때 input창에 표시
- */
+import { objectToDate, dateToObject, formatDate } from './utils/helper.js';
 
 // Constants
 const monthStr = [
@@ -27,20 +25,6 @@ const $next = $calendar.querySelector('.next');
 const $calendarTitle = document.querySelector('.calendar-title');
 const $calendarDate = document.querySelector('.date-grid');
 
-// Utility
-const objectToDate = ({ year, month, date }) => new Date(year, month, date);
-
-const dateToObject = dateObj => ({
-  year: dateObj.getFullYear(),
-  month: dateObj.getMonth(),
-  date: dateObj.getDate(),
-});
-
-const formatDate = (() => {
-  const format = n => (n < 10 ? '0' + n : n + '');
-  return date => `${date.getFullYear()}-${format(date.getMonth() + 1)}-${format(date.getDate())}`;
-})();
-
 /**
  * 달의 마지막 일
  * @type { (year: number, month: number) => number }
@@ -57,18 +41,13 @@ const getLastDay = (year, month) =>
   month === 11 ? new Date(year + 1, 0, 0).getDay() : new Date(year, month + 1, 0).getDay();
 
 /**
- * 달의 당일?
+ * 변경될 달의 date
  * @type { (year: number, month: number, date: number) => Date }
  */
 const getMonthDate = ({ year, month, date }) =>
   new Date(year, month, getLastDate(year, month) < date ? getLastDate(year, month) : date);
 
-// render
-const render = ({ year, month, date }) => {
-  $calendarTitle.innerHTML = `
-    <span class="month">${monthStr[month]}</span>
-    <span class="year">${year}</span>`;
-
+const getCalendarDates = (year, month) => {
   const prevYear = month === 0 ? year - 1 : year;
   const prevMonth = month === 0 ? 11 : month - 1;
 
@@ -98,7 +77,16 @@ const render = ({ year, month, date }) => {
     current: false,
   }));
 
-  $calendarDate.innerHTML = [...prevDates, ...currentDates, ...nextDates]
+  return [...prevDates, ...currentDates, ...nextDates];
+};
+
+// render
+const render = ({ year, month, date }) => {
+  $calendarTitle.innerHTML = `
+    <span class="month">${monthStr[month]}</span>
+    <span class="year">${year}</span>`;
+
+  $calendarDate.innerHTML = getCalendarDates(year, month)
     .map(
       calDate => `
     <button class="${!calDate.current ? 'other-month ' : ''}${
@@ -106,14 +94,15 @@ const render = ({ year, month, date }) => {
       }"><time datetime="${formatDate(objectToDate(calDate))}">${calDate.date}</time></button>`,
     )
     .join('');
-};
 
-const init = () => {
-  render(dateToObject(new Date()));
+  $calendarInput.value = formatDate(new Date(year, month, date));
 };
 
 // Event Binding
-window.addEventListener('DOMContentLoaded', init);
+window.addEventListener('DOMContentLoaded', () => {
+  render(dateToObject(new Date()));
+  $calendarInput.value = '';
+});
 
 document.body.onclick = e => {
   if (e.target.closest('.calendar')) return;
@@ -137,13 +126,9 @@ $next.onclick = () => {
 
 $calendarDate.onclick = e => {
   // 날짜 클릭 이벤트 위임
-  if (!e.target.matches('button') && !e.target.matches('time')) return;
-  const datetime = e.target.matches('button')
-    ? e.target.firstElementChild.getAttribute('datetime')
-    : e.target.getAttribute('datetime');
-  const [year, month, date] = datetime.split('-');
+  if (!e.target.matches('time')) return;
+  const [year, month, date] = e.target.getAttribute('datetime').split('-');
 
   render({ year: +year, month: +month - 1, date: +date });
-  $calendarInput.value = datetime;
   $calendarWrapper.classList.toggle('hidden');
 };
