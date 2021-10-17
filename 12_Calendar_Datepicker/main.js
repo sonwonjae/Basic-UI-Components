@@ -1,7 +1,4 @@
 import { objectToDate, dateToObject, formatDate } from './utils/helper.js';
-/**
- * @todo prev, next 버튼 클릭했을 때 input창에 표시
- */
 
 // Constants
 const monthStr = [
@@ -44,7 +41,7 @@ const getLastDay = (year, month) =>
   month === 11 ? new Date(year + 1, 0, 0).getDay() : new Date(year, month + 1, 0).getDay();
 
 /**
- * 달의 당일?
+ * 변경될 달의 date
  * @type { (year: number, month: number, date: number) => Date }
  */
 const getMonthDate = ({ year, month, date }) =>
@@ -93,6 +90,8 @@ const render = ({ year, month, date }) => {
       }"><time datetime="${formatDate(objectToDate(calDate))}">${calDate.date}</time></button>`,
     )
     .join('');
+
+  $calendarInput.value = formatDate(new Date(year, month, date));
 };
 
 const init = () => {
@@ -131,6 +130,5 @@ $calendarDate.onclick = e => {
   const [year, month, date] = datetime.split('-');
 
   render({ year: +year, month: +month - 1, date: +date });
-  $calendarInput.value = datetime;
   $calendarWrapper.classList.toggle('hidden');
 };
