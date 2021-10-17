@@ -26,11 +26,8 @@ const fetchTabsData = () =>
  */
 const tab = (() => {
   // state
-  /** @type {number} */
-  let currentTab = 0;
-
-  /** @type {number} */
-  let tabLength = 0;
+  /** @type { [number,number] } */
+  let [currentTab, tabLength] = [0, 0];
 
   // DOM Nodes
   const $tabs = document.querySelector('.tabs');
@@ -59,17 +56,17 @@ const tab = (() => {
   // render function
   const renderHTML = resolve => {
     const { titles, contents } = resolve.reduce(
-      (html, { title, content }, i) => {
-        html.titles += `<div class="tab" data-index="${i}">${title}</div>`;
-        html.contents += `<div class="tab-content ${
-          i === currentTab ? 'active' : ''
-        }">${content}</div>`;
-        return html;
-      },
-      { titles: '', contents: '' },
+      ({ titles, contents }, { title, content }, i) => ({
+        titles: [...titles, `<div class="tab" data-index="${i}">${title}</div>`],
+        contents: [
+          ...contents,
+          `<div class="tab-content ${i === currentTab ? 'active' : ''}">${content}</div>`,
+        ],
+      }),
+      { titles: [], contents: [] },
     );
 
-    return `<nav>${titles}<span class="glider"></span></nav>${contents}`;
+    return `<nav>${titles.join('')}<span class="glider"></span></nav>${contents.join('')}`;
   };
 
   return {
