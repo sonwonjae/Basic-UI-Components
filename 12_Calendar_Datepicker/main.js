@@ -52,7 +52,7 @@ const getMonthDate = ({ year, month, date }) =>
  * @type { (len: number, obj: object, start: number) => Array }
  */
 // eslint-disable-next-line no-param-reassign
-const makeDates = (len, obj, start) => Array.from({ len }, () => ({ ...obj, date: start++ }));
+const makeDates = (length, obj, start) => Array.from({ length }, () => ({ ...obj, date: start++ }));
 
 const getCalendarDates = (year, month) => {
   const prevYear = year - !month;
@@ -72,7 +72,10 @@ const getCalendarDates = (year, month) => {
   ];
 };
 
-// render
+/**
+ * render dates
+ * @param {{year: string, month: string, date: string}} dateObject
+ */
 const render = ({ year, month, date }) => {
   $calendarTitle.innerHTML = `
     <span class="month">${monthStr[month]}</span>
@@ -81,13 +84,32 @@ const render = ({ year, month, date }) => {
   $calendarDate.innerHTML = getCalendarDates(year, month)
     .map(
       calDate => `
-    <button class="${!calDate.current ? 'other-month ' : ''}${
-        month === calDate.month && date === calDate.date ? 'selected' : ''
-      }"><time datetime="${formatDate(objectToDate(calDate))}">${calDate.date}</time></button>`,
+        <button 
+          class="
+          ${!calDate.current ? 'other-month ' : ''}
+          ${month === calDate.month && date === calDate.date ? 'selected' : ''}
+          ">
+        <time datetime="${formatDate(objectToDate(calDate))}">${calDate.date}</time></button>`,
     )
     .join('');
 
   $calendarInput.value = formatDate(new Date(year, month, date));
+};
+
+/**
+ * get parsed date
+ * @returns { Array<string> }
+ */
+const parseDate = () =>
+  document.querySelector('button.selected > time').getAttribute('datetime').split('-');
+
+/**
+ * filp month & render
+ * @param { number } number
+ */
+const filpMonth = number => {
+  const [year, month, date] = parseDate();
+  render(dateToObject(getMonthDate({ year, month: +month - 1 + number, date })));
 };
 
 // Event Binding
@@ -103,21 +125,10 @@ document.body.onclick = e => {
 
 $calendarInput.onclick = () => $calendarWrapper.classList.toggle('hidden');
 
-const parseDate = () =>
-  document.querySelector('button.selected > time').getAttribute('datetime').split('-');
-
-$prev.onclick = () => {
-  const [year, month, date] = parseDate();
-  render(dateToObject(getMonthDate({ year, month: +month - 1 - 1, date })));
-};
-
-$next.onclick = () => {
-  const [year, month, date] = parseDate();
-  render(dateToObject(getMonthDate({ year, month: +month - 1 + 1, date })));
-};
+$prev.onclick = () => filpMonth(-1);
+$next.onclick = () => filpMonth(+1);
 
 $calendarDate.onclick = e => {
-  // 날짜 클릭 이벤트 위임
   if (!e.target.matches('time')) return;
   const [year, month, date] = e.target.getAttribute('datetime').split('-');
 
