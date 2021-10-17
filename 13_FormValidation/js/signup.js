@@ -14,17 +14,37 @@ const signup = {
   'confirm-password': $signupConfirm,
 };
 
-// confirm function
-const confirmValidsignup = (target, regexp, type) => {
-  validateAllsignup[type] = regexp.test(target.value);
+/**
+ * confirm validity for button's disable status
+ * @param {Element} $target
+ * @param {RegExp} regexp
+ * @param {string} type
+ */
+const confirmValidsignup = ($target, regexp, type) => {
+  validateAllsignup[type] = regexp.test($target.value);
   $signupButton.toggleAttribute('disabled', !Object.values(validateAllsignup).every(el => el));
 };
 
+/**
+ * Confirm for showing error status
+ * @param {Element} $target
+ * @param {string} prop
+ */
+const checkShowError = ($target, prop) => {
+  const $error = signup[prop].querySelector('.error');
+  $error.textContent = errorMessage(pattern[prop].test($target.value), ERROR_MESSAGE[prop]);
+  confirmValidsignup($target, pattern[prop], prop);
+  toggleValidateIcon($target, signup[prop], pattern[prop]);
+};
+
+/**
+ * Sync at password changed
+ */
 const syncConfirmPassword = () => {
-  const confirmInput = signup['confirm-password'].querySelector('input');
-  if (confirmInput.value === '') return;
-  confirmValidsignup(confirmInput, pattern['confirm-password'], 'confirm-password');
-  toggleValidateIcon(confirmInput, signup['confirm-password'], pattern['confirm-password']);
+  const $confirmInput = signup['confirm-password'].querySelector('input');
+
+  if ($confirmInput.value === '') return;
+  checkShowError($confirmInput, 'confirm-password');
 };
 
 // Event Handler
@@ -36,12 +56,7 @@ const signupInput = e => {
     pattern['confirm-password'] = new RegExp(`^${e.target.value}$`);
     syncConfirmPassword();
   }
-
-  if (pattern[name]) toggleValidateIcon(e.target, signup[name], pattern[name]);
-
-  const $error = signup[name].querySelector('.error');
-  $error.textContent = errorMessage(pattern[name].test(e.target.value), ERROR_MESSAGE[name]);
-  confirmValidsignup(e.target, pattern[name], name);
+  checkShowError(e.target, name);
 };
 
 // submit
