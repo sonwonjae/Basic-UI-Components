@@ -18,4 +18,8 @@
     if (!e.target.classList.contains('menu')) return;
     toggleActive(e.target.nextElementSibling);
   };
+
+  window.addEventListener('DOMContentLoaded', () => {
+    $menuContainers[0].lastElementChild.style.height = 'auto';
+  });
 })();

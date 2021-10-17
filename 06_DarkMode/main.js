@@ -1,5 +1,4 @@
 (() => {
-  document.body.style.visibility = 'hidden';
   // DOM Nodes
   const $toggleButton = document.querySelector('.toggle-button');
 
