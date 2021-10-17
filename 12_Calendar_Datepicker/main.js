@@ -47,37 +47,29 @@ const getLastDay = (year, month) =>
 const getMonthDate = ({ year, month, date }) =>
   new Date(year, month, getLastDate(year, month) < date ? getLastDate(year, month) : date);
 
+/**
+ * 달의 DatesList
+ * @type { (len: number, obj: object, start: number) => Array }
+ */
+// eslint-disable-next-line no-param-reassign
+const makeDates = (len, obj, start) => Array.from({ len }, () => ({ ...obj, date: start++ }));
+
 const getCalendarDates = (year, month) => {
-  const prevYear = month === 0 ? year - 1 : year;
+  const prevYear = year - !month;
   const prevMonth = month === 0 ? 11 : month - 1;
-
-  const nextYear = month === 11 ? year + 1 : year;
+  const nextYear = year + !!(month === 11);
   const nextMonth = month === 11 ? 0 : month + 1;
+  const prevStartDate = getLastDate(prevYear, prevMonth) - getFirstDay(year, month) + 1;
 
-  let prevStartDate = getLastDate(prevYear, prevMonth) - getFirstDay(year, month) + 1;
+  const prevDateObj = { year: prevYear, month: prevMonth, current: false };
+  const curDateObj = { year, month, current: true };
+  const nextDateObj = { year: nextYear, month: nextMonth, current: false };
 
-  const prevDates = Array.from({ length: getFirstDay(year, month) }, () => ({
-    year: prevYear,
-    month: prevMonth,
-    date: prevStartDate++,
-    current: false,
-  }));
-
-  const currentDates = Array.from({ length: getLastDate(year, month) }, (_, i) => ({
-    year,
-    month,
-    date: i + 1,
-    current: true,
-  }));
-
-  const nextDates = Array.from({ length: 6 - getLastDay(year, month) }, (_, i) => ({
-    year: nextYear,
-    month: nextMonth,
-    date: i + 1,
-    current: false,
-  }));
-
-  return [...prevDates, ...currentDates, ...nextDates];
+  return [
+    ...makeDates(getFirstDay(year, month), prevDateObj, prevStartDate),
+    ...makeDates(getLastDate(year, month), curDateObj, 1),
+    ...makeDates(6 - getLastDay(year, month), nextDateObj, 1),
+  ];
 };
 
 // render
