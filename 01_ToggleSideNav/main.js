@@ -7,7 +7,9 @@ const navigation = (() => {
   const $main = document.querySelector('main');
   const $toggleArrow = document.querySelector('.toggle');
 
-  $toggleArrow.onclick = navigation.toggle;
+  /** toggle navigation */
+  $toggleArrow.onclick = () =>
+    localStorage.setItem('navActive', $navigation.classList.toggle('active'));
 
   return {
     /** get initial page nav's status */
@@ -18,10 +20,6 @@ const navigation = (() => {
     /** add nav's transition */
     addTranstion() {
       [$navigation, $main, $toggleArrow].forEach($el => $el.classList.remove('notransition'));
-    },
-    /** toggle navigation */
-    toggle() {
-      localStorage.setItem('navActive', $navigation.classList.toggle('active'));
     },
   };
 })();
