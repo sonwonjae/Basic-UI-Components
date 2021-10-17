@@ -95,6 +95,14 @@ body {
   border-radius: 50%;
   border: none;
   background-color: transparent;
+  padding: 0;
+}
+
+.date-grid > button > time {
+  display: inline-block;
+  line-height: calc(var(--calendar-size) / 7);
+  width: 100%;
+  height: 100%;
   cursor: pointer;
 }
 

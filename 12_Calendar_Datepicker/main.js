@@ -47,12 +47,7 @@ const getLastDay = (year, month) =>
 const getMonthDate = ({ year, month, date }) =>
   new Date(year, month, getLastDate(year, month) < date ? getLastDate(year, month) : date);
 
-// render
-const render = ({ year, month, date }) => {
-  $calendarTitle.innerHTML = `
-    <span class="month">${monthStr[month]}</span>
-    <span class="year">${year}</span>`;
-
+const getCalendarDates = (year, month) => {
   const prevYear = month === 0 ? year - 1 : year;
   const prevMonth = month === 0 ? 11 : month - 1;
 
@@ -82,7 +77,16 @@ const render = ({ year, month, date }) => {
     current: false,
   }));
 
-  $calendarDate.innerHTML = [...prevDates, ...currentDates, ...nextDates]
+  return [...prevDates, ...currentDates, ...nextDates];
+};
+
+// render
+const render = ({ year, month, date }) => {
+  $calendarTitle.innerHTML = `
+    <span class="month">${monthStr[month]}</span>
+    <span class="year">${year}</span>`;
+
+  $calendarDate.innerHTML = getCalendarDates(year, month)
     .map(
       calDate => `
     <button class="${!calDate.current ? 'other-month ' : ''}${
@@ -94,12 +98,11 @@ const render = ({ year, month, date }) => {
   $calendarInput.value = formatDate(new Date(year, month, date));
 };
 
-const init = () => {
-  render(dateToObject(new Date()));
-};
-
 // Event Binding
-window.addEventListener('DOMContentLoaded', init);
+window.addEventListener('DOMContentLoaded', () => {
+  render(dateToObject(new Date()));
+  $calendarInput.value = '';
+});
 
 document.body.onclick = e => {
   if (e.target.closest('.calendar')) return;
@@ -123,11 +126,8 @@ $next.onclick = () => {
 
 $calendarDate.onclick = e => {
   // 날짜 클릭 이벤트 위임
-  if (!e.target.matches('button') && !e.target.matches('time')) return;
-  const datetime = e.target.matches('button')
-    ? e.target.firstElementChild.getAttribute('datetime')
-    : e.target.getAttribute('datetime');
-  const [year, month, date] = datetime.split('-');
+  if (!e.target.matches('time')) return;
+  const [year, month, date] = e.target.getAttribute('datetime').split('-');
 
   render({ year: +year, month: +month - 1, date: +date });
   $calendarWrapper.classList.toggle('hidden');
