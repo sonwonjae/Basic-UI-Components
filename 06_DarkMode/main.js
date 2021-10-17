@@ -10,11 +10,11 @@
     manualDark
       ? document.body.classList.toggle('dark', manualDark === 'true')
       : document.body.classList.toggle('dark', darkMatcher);
-  });
 
-  window.ontransitionend = () => {
-    document.body.style.visibility = 'visible';
-  };
+    window.ontransitionend = () => {
+      document.body.style.visibility = 'visible';
+    };
+  });
 
   $toggleButton.onclick = () => {
     localStorage.setItem('dark', document.body.classList.toggle('dark'));
