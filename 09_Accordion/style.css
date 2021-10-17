@@ -62,7 +62,8 @@ body {
   /* max-height: 1000px; */
   /* max-height: 133px; */
   /* height: 100px; */
-  height: 133px; /* I thought this is Best solution for initial rendering */
+  /* I thought this is Best solution for initial rendering */
+  /* height: 133px;  */
 }
 .accordion > .menu-container > .submenu {
   height: 0;
