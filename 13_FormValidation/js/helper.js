@@ -1,11 +1,22 @@
-// function
-const errorMessage = (result, text) => (result ? '' : text);
+/**
+ * display error message function
+ * @param {boolean} testResultRegExp
+ * @param {string} message
+ * @returns {string}
+ */
+const errorMessage = (testResultRegExp, message) => (testResultRegExp ? '' : message);
 
-const validate = (target, $input, regexp) => {
+/**
+ * toggle validate icon
+ * @param {Element} $target
+ * @param {Element} $input
+ * @param {RegExp} regexp
+ */
+const toggleValidateIcon = ($target, $input, regexp) => {
   const [$successIcon, $errorIcon] = $input.querySelectorAll('.icon');
 
-  $successIcon.classList.toggle('hidden', !regexp.test(target.value));
-  $errorIcon.classList.toggle('hidden', regexp.test(target.value));
+  $successIcon.classList.toggle('hidden', !regexp.test($target.value));
+  $errorIcon.classList.toggle('hidden', regexp.test($target.value));
 };
 
-export { errorMessage, validate };
+export { errorMessage, toggleValidateIcon };

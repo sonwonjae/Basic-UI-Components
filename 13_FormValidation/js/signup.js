@@ -1,14 +1,12 @@
 import { pattern, ERROR_MESSAGE, validateAllsignup } from './model.js';
-import { errorMessage, validate } from './helper.js';
-import { createToastAction, toaster } from './toaster.mjs';
+import { errorMessage, toggleValidateIcon } from './helper.js';
+import { createToastAction, toaster } from './toaster.js';
 
 // DOM Nodes
 const $signupButton = document.querySelector('.signup.button');
-
 const [$signupUserid, $signupName, $signupPassword, $signupConfirm] = document.querySelectorAll(
   '.signup > .input-container',
 );
-
 const signup = {
   userid: $signupUserid,
   username: $signupName,
@@ -16,6 +14,7 @@ const signup = {
   'confirm-password': $signupConfirm,
 };
 
+// confirm function
 const confirmValidsignup = (target, regexp, type) => {
   validateAllsignup[type] = regexp.test(target.value);
   $signupButton.toggleAttribute('disabled', !Object.values(validateAllsignup).every(el => el));
@@ -25,7 +24,7 @@ const syncConfirmPassword = () => {
   const confirmInput = signup['confirm-password'].querySelector('input');
   if (confirmInput.value === '') return;
   confirmValidsignup(confirmInput, pattern['confirm-password'], 'confirm-password');
-  validate(confirmInput, signup['confirm-password'], pattern['confirm-password']);
+  toggleValidateIcon(confirmInput, signup['confirm-password'], pattern['confirm-password']);
 };
 
 // Event Handler
@@ -38,7 +37,7 @@ const signupInput = e => {
     syncConfirmPassword();
   }
 
-  if (pattern[name]) validate(e.target, signup[name], pattern[name]);
+  if (pattern[name]) toggleValidateIcon(e.target, signup[name], pattern[name]);
 
   const $error = signup[name].querySelector('.error');
   $error.textContent = errorMessage(pattern[name].test(e.target.value), ERROR_MESSAGE[name]);

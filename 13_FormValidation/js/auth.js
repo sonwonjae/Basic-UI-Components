@@ -1,7 +1,7 @@
 import { signinInput, signinSubmit } from './signin.js';
 import { signupInput, signupSubmit } from './signup.js';
 
-// // DOM Nodes
+// DOM Nodes
 const $signinForm = document.querySelector('.signin');
 const $signupForm = document.querySelector('.signup');
 const [$signUplink, $signInlink] = document.querySelectorAll('.link > a');
@@ -12,5 +12,6 @@ const [$signUplink, $signInlink] = document.querySelectorAll('.link > a');
     [$signinForm, $signupForm].forEach($form => $form.classList.toggle('hidden'));
 });
 
+// Event Binding
 [$signinForm.oninput, $signinForm.onsubmit] = [_.throttle(signinInput, 100), signinSubmit];
 [$signupForm.oninput, $signupForm.onsubmit] = [_.throttle(signupInput, 100), signupSubmit];
