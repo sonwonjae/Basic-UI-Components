@@ -56,3 +56,23 @@ CSS의 미디어 쿼리(@media)는 HTML 요소를 기반으로 동작하지 않�
 
 - Date picker의 값이 존재할 때 Date picker를 다시 클릭(포커스)하면
   Date picker의 값을 기준으로 캘린더를 렌더링한다.
+
+<br>
+
+## Issue
+
+- month 이동 시 date 계산
+  ```javascript
+  /**
+   * 달의 마지막 일
+   * @type { (year: number, month: number) => number }
+   */
+  const getLastDate = (year, month) =>
+    month === 11 ? new Date(year + 1, 0, 0).getDate() : new Date(year, month + 1, 0).getDate();
+  /**
+   * 변경될 달의 date
+   * @type { (year: number, month: number, date: number) => Date }
+   */
+  const getMonthDate = ({ year, month, date }) =>
+    new Date(year, month, getLastDate(year, month) < date ? getLastDate(year, month) : date);
+  ```
