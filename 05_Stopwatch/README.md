@@ -1,6 +1,6 @@
 # 5. Stopwatch
 
-![stopwatch](https://poiemaweb.com/assets/fs-images/exercise/stopwatch.gif)
+![stopwatch](/images/stopwatch.gif)
 
 ## 요구사항
 

@@ -1,5 +1,7 @@
 # 1. Toggle side nav
 
+![Toggle side nav](/images/toggle-side-nav.gif)
+
 ## 요구사항
 
 - 페이지 상단 토글 버튼(i.toggle)이 클릭되면 사이드 내비게이션이 토글(오픈/클로즈)되도록 구현한다.

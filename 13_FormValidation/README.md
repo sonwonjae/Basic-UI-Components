@@ -1,6 +1,6 @@
 # 13. Form validation
 
-![Form validation](https://poiemaweb.com/assets/fs-images/exercise/form-validation-1.gif)
+![Form validation](/images/form-validation-2.gif)
 
 ## 요구사항
 

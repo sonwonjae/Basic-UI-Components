@@ -1,6 +1,6 @@
 # 4. Analog Clock
 
-![Analog Clock](https://poiemaweb.com/assets/fs-images/exercise/analog-clock.gif)
+![Analog Clock](/images/analog-clock.gif)
 
 ## 요구사항
 

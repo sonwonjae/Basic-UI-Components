@@ -1,6 +1,6 @@
 # 10. Toaster (Collapse)
 
-![Toaster](https://poiemaweb.com/assets/fs-images/exercise/toast-ui.gif)
+![Toaster](/images/toast-ui.gif)
 
 ## 요구사항
 
@@ -9,4 +9,4 @@
 
 ## Todo
 
-1. 
+1.

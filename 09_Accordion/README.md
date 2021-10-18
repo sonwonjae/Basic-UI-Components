@@ -1,6 +1,6 @@
 # 9. Accordion (Collapse)
 
-![Accordion](https://poiemaweb.com/assets/fs-images/exercise/accordion.gif)
+![Accordion](/images/accordion.gif)
 
 ## 요구사항
 

@@ -1,6 +1,6 @@
-# 10. Toaster (Collapse)
+# 11. Carosel Slider
 
-![Toaster](https://poiemaweb.com/assets/fs-images/exercise/toast-ui.gif)
+![Carosel Slider](/images/carousel.gif)
 
 ## 요구사항
 

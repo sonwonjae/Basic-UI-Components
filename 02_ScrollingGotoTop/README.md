@@ -1,8 +1,11 @@
-# 1. Scrolling goto top
+# 2. Scrolling goto top
+
+![Scrolling goto top](/images/scrolling-goto-top.gif)
 
 ## 요구사항
 
 - 아래를 참조하여 일정 거리(예를 들어, 100px)만큼 스크롤되면 버튼을 활성화하고 그 버튼이 클릭되면 맨 위로 스크롤되도록 구현한다.
+
   - Window.pageYOffset
   - Window.scrollTo()
   - Window.scroll()
@@ -16,6 +19,6 @@
 
 2. `.scroll-icon`에 `onclick` 이벤트 추가
 
-   - `scrollTo(0, 0)` 
+   - `scrollTo(0, 0)`
 
 3. 스크롤 감지 이벤트 스로틀링

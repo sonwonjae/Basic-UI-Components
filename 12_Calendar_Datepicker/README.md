@@ -1,6 +1,6 @@
 # 12. Calendar & Datepicker
 
-![Calendar & Datepicker](https://poiemaweb.com/assets/fs-images/exercise/date-picker.gif)
+![Calendar & Datepicker](/images/date-picker.gif)
 
 ## 요구사항
 
@@ -10,10 +10,10 @@
 
 - flex는 1차원(선형) 레이아웃에 적합하고 grid는 2차원(매트릭스) 레이이웃에 적합하다. .calendar-nav 요소의 콘텐츠는 선형이고 .calendar-grid 요소의 콘텐츠는 매트릭스이므로 다음과 같이 레이아웃 시스템을 적용해 구현한다.
 
-| 구성 요소 |	적용 레이아웃 |
-|:--:|:--:|
-| .calendar-nav |	flex |
-| .calendar-grid | grid |
+|   구성 요소    | 적용 레이아웃 |
+| :------------: | :-----------: |
+| .calendar-nav  |     flex      |
+| .calendar-grid |     grid      |
 
 #### When to use Flexbox and when to use CSS grid
 
@@ -28,7 +28,6 @@ CSS의 미디어 쿼리(@media)는 HTML 요소를 기반으로 동작하지 않�
 ### 기능
 
 - 현재를 기준으로 .calendar 요소의 콘텐츠를 동적으로 생성하여 초기 렌더링한다.
-  
 - .calendar-nav 요소의 버튼을 클릭하면 익월 또는 전월을 기준으로 .calendar 요소의 컨텐츠를 동적으로 생성하여 렌더링한다.
 
 - 현재 표시 중인 달의 1일 앞과 말일 뒤에 이전 달과 다음 달의 날짜를 채운다.
@@ -55,5 +54,5 @@ CSS의 미디어 쿼리(@media)는 HTML 요소를 기반으로 동작하지 않�
 
 - 캘린더와 Date picker 이외의 영역을 클릭하면 캘린더가 사라진다.
 
-- Date picker의 값이 존재할 때 Date picker를 다시 클릭(포커스)하면 
-Date picker의 값을 기준으로 캘린더를 렌더링한다.
+- Date picker의 값이 존재할 때 Date picker를 다시 클릭(포커스)하면
+  Date picker의 값을 기준으로 캘린더를 렌더링한다.

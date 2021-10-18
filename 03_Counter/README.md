@@ -1,6 +1,6 @@
 # 3. Counter
 
-![counter](https://poiemaweb.com/assets/fs-images/exercise/counter.gif)
+![counter](/images/counter.gif)
 
 ## 요구사항
 

@@ -1,6 +1,6 @@
 # 7. Popup (modal)
 
-![Popup](https://poiemaweb.com/assets/fs-images/exercise/popup.gif)
+![Popup](/images/popup.gif)
 
 ## 요구사항
 

@@ -1,6 +1,6 @@
 # 6. Dark mode
 
-![Dark mode](https://poiemaweb.com/assets/fs-images/exercise/dark-mode-toggle.gif)
+![Dark mode](/images/dark-mode.gif)
 
 ## 요구사항
 
