@@ -21,5 +21,19 @@
 
 ## Issue
 
-- confirm-password 동적 상태 체크 로직
+- [x] confirm-password 동적 상태 체크 로직
+
   - password가 변경되면, confirm-password의 상태를 동적으로 결정하도록 로직 구성
+
+  ```javascript
+  const signupInput = e => {
+    if (!e.target.matches('input')) return;
+    const name = e.target.getAttribute('name');
+
+    if (name === 'password') {
+      pattern['confirm-password'] = new RegExp(`^${e.target.value}$`);
+      syncConfirmPassword();
+    }
+    checkShowError(e.target, name);
+  };
+  ```
