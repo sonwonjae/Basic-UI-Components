@@ -11,10 +11,10 @@ const navigation = (() => {
   $toggleArrow.onclick = () => localStorage.setItem('navActive', $nav.classList.toggle('active'));
 
   return {
-    /** get initial page nav's status */
-    getStatus() {
+    /** init page nav's active status */
+    initNavActive() {
       [$nav, $main, $toggleArrow].forEach($el => $el.classList.add('notransition'));
-      $nav.classList.toggle('active', localStorage.getItem('navActive') === 'true');
+      $nav.classList.toggle('active', JSON.parse(localStorage.getItem('navActive')));
     },
     /** add nav's transition */
     addTranstion() {
@@ -24,5 +24,5 @@ const navigation = (() => {
 })();
 
 // Event bindings
-window.addEventListener('DOMContentLoaded', navigation.getStatus);
+window.addEventListener('DOMContentLoaded', navigation.initNavActive);
 window.addEventListener('load', navigation.addTranstion);
