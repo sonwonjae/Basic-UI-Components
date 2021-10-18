@@ -43,8 +43,7 @@ const checkShowError = ($target, prop) => {
 const syncConfirmPassword = () => {
   const $confirmInput = signup['confirm-password'].querySelector('input');
 
-  if ($confirmInput.value === '') return;
-  checkShowError($confirmInput, 'confirm-password');
+  if ($confirmInput.value) checkShowError($confirmInput, 'confirm-password');
 };
 
 // Event Handler

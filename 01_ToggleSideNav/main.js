@@ -3,23 +3,22 @@
  */
 const navigation = (() => {
   // DOM nodes
-  const $navigation = document.querySelector('nav');
+  const $nav = document.querySelector('nav');
   const $main = document.querySelector('main');
   const $toggleArrow = document.querySelector('.toggle');
 
   /** toggle navigation */
-  $toggleArrow.onclick = () =>
-    localStorage.setItem('navActive', $navigation.classList.toggle('active'));
+  $toggleArrow.onclick = () => localStorage.setItem('navActive', $nav.classList.toggle('active'));
 
   return {
     /** get initial page nav's status */
     getStatus() {
-      [$navigation, $main, $toggleArrow].forEach($el => $el.classList.add('notransition'));
-      $navigation.classList.toggle('active', localStorage.getItem('navActive') === 'true');
+      [$nav, $main, $toggleArrow].forEach($el => $el.classList.add('notransition'));
+      $nav.classList.toggle('active', localStorage.getItem('navActive') === 'true');
     },
     /** add nav's transition */
     addTranstion() {
-      [$navigation, $main, $toggleArrow].forEach($el => $el.classList.remove('notransition'));
+      [$nav, $main, $toggleArrow].forEach($el => $el.classList.remove('notransition'));
     },
   };
 })();
