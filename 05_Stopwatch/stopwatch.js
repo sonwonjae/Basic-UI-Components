@@ -1,12 +1,12 @@
 // helper
 /**
- * @param {number}:time
+ * @param {number} time
  * @returns {string}
  */
 const toDigitTime = time => `${time < 10 ? '0' : ''}${time}`;
 
 /**
- * @param {number}:time
+ * @param {number} time
  * @returns {string}
  */
 const parseTime = time => {
