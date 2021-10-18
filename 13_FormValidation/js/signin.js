@@ -10,9 +10,14 @@ const signin = {
   password: $signinPassword,
 };
 
-// confirm function
-const confirmValidsignin = (target, regexp, type) => {
-  validateAllsignin[type] = regexp.test(target.value);
+/**
+ * confirm validity for button's disable status
+ * @param {Element} $target
+ * @param {RegExp} regexp
+ * @param {string} type
+ */
+const confirmValidsignin = ($target, regexp, type) => {
+  validateAllsignin[type] = regexp.test($target.value);
   $signinButton.toggleAttribute('disabled', !Object.values(validateAllsignin).every(el => el));
 };
 

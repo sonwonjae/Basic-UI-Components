@@ -22,3 +22,9 @@
    - `scrollTo(0, 0)`
 
 3. 스크롤 감지 이벤트 스로틀링
+
+## Issue
+
+- [x] Throttling
+  - Custom 쓰로틀링 적용 -> 라이브러리(`Lodash`) 변경
+    - 성능상 라이브러리가 유연함

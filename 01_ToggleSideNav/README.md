@@ -17,3 +17,9 @@
 2. 상태 저장
 
 - local storage 사용
+
+## Issue
+
+- [x] DOM load Timing 이슈
+  - `DOMContentLoaded`시점에 `no-transition` class 적용
+  - `load`시점에 `transition` 재적용

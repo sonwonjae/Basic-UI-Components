@@ -14,5 +14,10 @@
 
 ## TODO
 
-1. toggle 버튼 클릭 시 `body`에 `dark` 클래스 추가
-2. 시스템 테마를 확인하여 테마 지정
+- [x] toggle 버튼 클릭 시 `body`에 `dark` 클래스 추가
+- [x] 시스템 테마를 확인하여 테마 지정
+
+## Issue
+
+- FOIT현상
+  - [x] Body의 렌더링 결과를 delay시킴

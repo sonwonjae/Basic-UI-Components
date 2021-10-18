@@ -17,8 +17,9 @@
 - ESM 모듈을 적극적으로 사용하여 소스 코드를 기능별로 분리한다.
   최대한 중복없이 가독성 좋게 구현한다.
 
-## Todo
+<br>
 
-### refactoring
+## Issue
 
-- validate All 메서드, 기본 로직에 별개로 input 이벤트에 따로 달아주기
+- confirm-password 동적 상태 체크 로직
+  - password가 변경되면, confirm-password의 상태를 동적으로 결정하도록 로직 구성

@@ -15,3 +15,4 @@
 ### Refactoring
 
 1. 최초 로드 시 버퍼 제거
+   - [x] `setInterval`에 바인딩된 함수를 interval 이전에 한 번 더 호출
